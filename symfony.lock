@@ -134,6 +134,9 @@
     "fig/link-util": {
         "version": "1.1.1"
     },
+    "friends-of-behat/mink-browserkit-driver": {
+        "version": "v1.4.0"
+    },
     "friends-of-behat/mink-extension": {
         "version": "v2.4.0"
     },
@@ -243,6 +246,9 @@
         "version": "v6.2.3"
     },
     "symfony/asset": {
+        "version": "v5.1.7"
+    },
+    "symfony/browser-kit": {
         "version": "v5.1.7"
     },
     "symfony/cache": {
