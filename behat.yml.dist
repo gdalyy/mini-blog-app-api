@@ -1,0 +1,19 @@
+default:
+    suites:
+        default:
+            contexts:
+                - App\Tests\Behat\ApiBaseContext
+                - Behatch\Context\RestContext
+                - Behatch\Context\JsonContext
+                - Behat\MinkExtension\Context\MinkContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: 'config/behat/bootstrap.php'
+        Behatch\Extension: ~
+        Behat\MinkExtension:
+            base_url: "http://localhost:8000/"
+            files_path: "%paths.base%/features/dummy/"
+            sessions:
+                default:
+                    symfony: ~

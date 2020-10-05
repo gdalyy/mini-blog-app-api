@@ -1,0 +1,48 @@
+security:
+    role_hierarchy:
+        ROLE_BLOGGER: ROLE_USER
+        ROLE_ADMIN: [ROLE_BLOGGER, ROLE_ALLOWED_TO_SWITCH]
+
+    encoders:
+        App\Entity\User:
+            algorithm: argon2i
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/_(profiler|wdt)
+            security: false
+
+        login:
+            pattern:  ^/api/authentication_token
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /api/authentication_token
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern: ^/api/
+            stateless: true
+            anonymous: true
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        main:
+            anonymous: true
+            pattern: ^/
+
+    access_control:
+        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
+        - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/refresh_authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
