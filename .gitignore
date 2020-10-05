@@ -20,3 +20,8 @@
 ###> IDE files ###
 /.idea/
 ###< IDE files ###
+
+
+###> Uploads ###
+/public/media/
+###< Uploads ###
