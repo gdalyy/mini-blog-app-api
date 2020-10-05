@@ -21,3 +21,36 @@ services:
         class: App\Doctrine\RefreshTokenManager
         public: true
         arguments: [ '@doctrine.orm.default_entity_manager', 'Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken']
+
+    App\Swagger\SwaggerDecorator:
+        decorates: 'api_platform.swagger.normalizer.documentation'
+        arguments: ['@App\Swagger\SwaggerDecorator.inner']
+        autoconfigure: false
+
+    App\Serializer\VerificationRequestContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+        arguments: [ '@App\Serializer\VerificationRequestContextBuilder.inner' ]
+        autoconfigure: false
+
+    App\EventListener\AttachRefreshTokenOnSuccessListener:
+        class: App\EventListener\AttachRefreshTokenOnSuccessListener
+        arguments:
+            - "@gesdinet.jwtrefreshtoken.refresh_token_manager"
+            - "%gesdinet_jwt_refresh_token.ttl%"
+            - "@validator"
+            - "@request_stack"
+            - "%gesdinet_jwt_refresh_token.user_identity_field%"
+            - "%gesdinet_jwt_refresh_token.token_parameter_name%"
+            - "%gesdinet_jwt_refresh_token.single_use%"
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: attachRefreshToken }
+
+    app.iri_converter:
+        alias : ApiPlatform\Core\Api\IriConverterInterface
+        public : true
+
+    App\EventListener\AuthenticationSuccessListener:
+        class: App\EventListener\AuthenticationSuccessListener
+        arguments: ["@app.iri_converter"]
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
