@@ -38,7 +38,7 @@ class Image extends BaseImage
             throw new InvalidArgumentException(sprintf('Cannot write to directory "%s"', $dir));
         }
 
-        // Generate a random filename if not filename was not given. Use the server address so that a file
+        // Generate a random filename if filename was not given. Use the server address so that a file
         // generated at the same time on a different server won't have a collision.
         if ('' == $filename) {
             $name = md5(uniqid(empty($_SERVER['SERVER_ADDR']) ? '' : $_SERVER['SERVER_ADDR'], true));

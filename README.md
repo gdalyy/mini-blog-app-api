@@ -85,7 +85,20 @@ To install and run this app follow these instructions :
 API documentation is now available under `http://localhost:8000/api/docs` , enjoy :)
 
 ### Testing 
+**Behat** 
 - copy the file `behat.xml.dist` to `behat.xml` 
 - Update your `.env.test` file according to your preferences
 - prepare testing environment by running ```$ composer prepare-test```
 - run tests ```$ vendor/bin/behat```
+
+**Phpunit** 
+- prepare testing environment by running ```$ composer prepare-test```
+- To run a specific suite
+
+        $ bin/phpunit --testsuite unit
+        $ bin/phpunit --testsuite integration
+        $ bin/phpunit --testsuite functional
+        
+- To run all tests with coverage 
+
+        $ bin/phpunit --coverage-html ./build
