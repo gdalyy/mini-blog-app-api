@@ -55,7 +55,7 @@ class UserFixtures extends Fixture
                 ->setEmail(sprintf("user%d@mail.com", $i))
                 ->setPassword($this->userPasswordEncoder->encodePassword($user, '12345678'));
 
-            $mediaObject = (new MediaObject())->setFilePath(Image::image($uploadDir, 640, 480, 'people', false,));
+            $mediaObject = (new MediaObject())->setFilePath(Image::image($uploadDir, 640, 480, 'people', false));
 
             $verificationRequest = new VerificationRequest();
             $verificationRequest
