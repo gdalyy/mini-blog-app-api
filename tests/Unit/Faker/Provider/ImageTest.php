@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Faker\Image;
+namespace App\Tests\Unit\Faker\Provider;
 
 use App\Faker\Provider\Image;
 use InvalidArgumentException;
