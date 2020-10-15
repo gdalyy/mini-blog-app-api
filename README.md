@@ -85,12 +85,12 @@ To install and run this app follow these instructions :
 API documentation is now available under `http://localhost:8000/api/docs` , enjoy :)
 
 ### Testing 
-**Behat** 
 
 PS: If some tests fail, this means probably that `http://lorempixel.com/` 
 used by Image Faker is down and not accessible. 
 So try to turn off tests related to `/api/media_objects/` endpoints.
 
+**Behat** 
 - copy the file `behat.xml.dist` to `behat.xml` 
 - Update your `.env.test` file according to your preferences
 - prepare testing environment by running ```$ composer prepare-test```
